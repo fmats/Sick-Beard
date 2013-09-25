@@ -21,8 +21,10 @@ __all__ = ['generic', 'helpers', 'xbmc', 'mediabrowser', 'synology', 'ps3', 'wdt
 import sys
 import xbmc, mediabrowser, synology, ps3, wdtv, tivo
 
+
 def available_generators():
     return filter(lambda x: x not in ('generic', 'helpers'), __all__)
+
 
 def _getMetadataModule(name):
     name = name.lower()
@@ -31,6 +33,7 @@ def _getMetadataModule(name):
         return sys.modules[prefix+name]
     else:
         return None
+
 
 def _getMetadataClass(name):
 
@@ -41,6 +44,7 @@ def _getMetadataClass(name):
     
     return module.metadata_class()
 
+
 def get_metadata_generator_dict():
     result = {}
     for cur_generator_id in available_generators():
@@ -50,4 +54,4 @@ def get_metadata_generator_dict():
         result[cur_generator.name] = cur_generator
     
     return result
-        
+

@@ -50,6 +50,7 @@ class GenericMetadata():
                  show_metadata=False,
                  episode_metadata=False,
                  poster=False,
+                 banner=False,
                  fanart=False,
                  episode_thumbnails=False,
                  season_thumbnails=False):
@@ -57,7 +58,8 @@ class GenericMetadata():
         self._show_file_name = "tvshow.nfo"
         self._ep_nfo_extension = "nfo"
         
-        self.poster_name = "folder.jpg"
+        self.poster_name = "poster.jpg"
+        self.banner_name = "banner.jpg"
         self.fanart_name = "fanart.jpg"
 
         self.generate_show_metadata = True
@@ -68,6 +70,7 @@ class GenericMetadata():
         self.show_metadata = show_metadata
         self.episode_metadata = episode_metadata
         self.poster = poster
+        self.banner = banner
         self.fanart = fanart
         self.episode_thumbnails = episode_thumbnails
         self.season_thumbnails = season_thumbnails
@@ -88,6 +91,7 @@ class GenericMetadata():
         self.show_metadata = config_list[0]
         self.episode_metadata = config_list[1]
         self.poster = config_list[2]
+        self.banner = config_list[2]
         self.fanart = config_list[3]
         self.episode_thumbnails = config_list[4]
         self.season_thumbnails = config_list[5]
@@ -106,7 +110,12 @@ class GenericMetadata():
         result = ek.ek(os.path.isfile, self.get_poster_path(show_obj))
         logger.log("Checking if "+self.get_poster_path(show_obj)+" exists: "+str(result), logger.DEBUG)
         return result
-    
+
+    def _has_banner(self, show_obj):
+        result = ek.ek(os.path.isfile, self.get_banner_path(show_obj))
+        logger.log("Checking if " + self.get_banner_path(show_obj) + " exists: " + str(result), logger.DEBUG)
+        return result
+
     def _has_fanart(self, show_obj):
         result = ek.ek(os.path.isfile, self.get_fanart_path(show_obj))
         logger.log("Checking if "+self.get_fanart_path(show_obj)+" exists: "+str(result), logger.DEBUG)
@@ -134,6 +143,9 @@ class GenericMetadata():
 
     def get_poster_path(self, show_obj):
         return ek.ek(os.path.join, show_obj.location, self.poster_name)
+
+    def get_banner_path(self, show_obj):
+        return ek.ek(os.path.join, show_obj.location, self.banner_name)
             
     def get_fanart_path(self, show_obj):
         return ek.ek(os.path.join, show_obj.location, self.fanart_name)
@@ -167,7 +179,7 @@ class GenericMetadata():
         else:
             season_thumb_file_path = 'season' + str(season).zfill(2)
         
-        return ek.ek(os.path.join, show_obj.location, season_thumb_file_path+'.tbn')
+        return ek.ek(os.path.join, show_obj.location, season_thumb_file_path + '-poster.jpg')
     
     def _show_data(self, show_obj):
         """
@@ -197,8 +209,14 @@ class GenericMetadata():
     
     def create_poster(self, show_obj):
         if self.poster and show_obj and not self._has_poster(show_obj):
-            logger.log("Metadata provider "+self.name+" creating poster for "+show_obj.name, logger.DEBUG)
+            logger.log("Metadata provider " + self.name + " creating poster for " + show_obj.name, logger.DEBUG)
             return self.save_poster(show_obj)
+        return False
+
+    def create_banner(self, show_obj):
+        if self.banner and show_obj and not self._has_banner(show_obj):
+            logger.log("Metadata provider " + self.name + " creating banner for " + show_obj.name, logger.DEBUG)
+            return self.save_banner(show_obj)
         return False
     
     def create_fanart(self, show_obj):
@@ -287,7 +305,7 @@ class GenericMetadata():
 
         try:
             if not ek.ek(os.path.isdir, nfo_file_dir):
-                logger.log("Metadata dir didn't exist, creating it at "+nfo_file_dir, logger.DEBUG)
+                logger.log("Metadata dir didn't exist, creating it at " + nfo_file_dir, logger.DEBUG)
                 ek.ek(os.makedirs, nfo_file_dir)
                 helpers.chmodAsParent(nfo_file_dir)
     
@@ -299,7 +317,8 @@ class GenericMetadata():
             nfo_file.close()
             helpers.chmodAsParent(nfo_file_path)
         except IOError, e:
-            logger.log(u"Unable to write file to "+nfo_file_path+" - are you sure the folder is writable? "+ex(e), logger.ERROR)
+            logger.log(u"Unable to write file to " + nfo_file_path +
+                       " - are you sure the folder is writable? " + ex(e), logger.ERROR)
             return False
         
         return True
@@ -401,7 +420,6 @@ class GenericMetadata():
 
         return self._write_image(fanart_data, fanart_path)
 
-
     def save_poster(self, show_obj, which=None):
         """
         Downloads a poster image and saves it to the filename specified by poster_name
@@ -412,11 +430,8 @@ class GenericMetadata():
 
         # use the default poster name
         poster_path = self.get_poster_path(show_obj)
-        
-        if sickbeard.USE_BANNER:
-            img_type = 'banner'
-        else:
-            img_type = 'poster'
+
+        img_type = 'poster'
         
         poster_data = self._retrieve_show_image(img_type, show_obj, which)
 
@@ -426,6 +441,26 @@ class GenericMetadata():
 
         return self._write_image(poster_data, poster_path)
 
+    def save_banner(self, show_obj, which=None):
+        """
+        Downloads a poster image and saves it to the filename specified by poster_name
+        inside the show's root folder.
+
+        show_obj: a TVShow object for which to download a poster
+        """
+
+        # use the default poster name
+        poster_path = self.get_banner_path(show_obj)
+
+        img_type = 'banner'
+
+        poster_data = self._retrieve_show_image(img_type, show_obj, which)
+
+        if not poster_data:
+            logger.log(u"No show folder image was retrieved, unable to write banner", logger.DEBUG)
+            return False
+
+        return self._write_image(poster_data, poster_path)
 
     def save_season_thumbs(self, show_obj):
         """
