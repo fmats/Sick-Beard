@@ -77,6 +77,7 @@ class MediaBrowserMetadata(generic.GenericMetadata):
         self.eg_episode_metadata = "Season##\\metadata\\<i>filename</i>.xml"
         self.eg_fanart = "backdrop.jpg"
         self.eg_poster = "folder.jpg"
+        self.eg_banner = "banner.jpg"
         self.eg_episode_thumbnails = "Season##\\metadata\\<i>filename</i>.jpg"
         self.eg_season_thumbnails = "Season##\\folder.jpg"
     

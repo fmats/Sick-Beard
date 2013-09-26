@@ -67,6 +67,7 @@ class WDTVMetadata(generic.GenericMetadata):
         self.eg_episode_metadata = "Season##\\<i>filename</i>.xml"
         self.eg_fanart = "<i>not supported</i>"
         self.eg_poster = "folder.jpg"
+        self.eg_banner = "banner.jpg"
         self.eg_episode_thumbnails = "Season##\\<i>filename</i>.metathumb"
         self.eg_season_thumbnails = "Season##\\folder.jpg"
     

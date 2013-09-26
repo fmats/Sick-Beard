@@ -68,6 +68,7 @@ class TIVOMetadata(generic.GenericMetadata):
         self.eg_episode_metadata = "Season##\\.meta\\<i>filename</i>.txt"
         self.eg_fanart = "<i>not supported</i>"
         self.eg_poster = "<i>not supported</i>"
+        self.eg_banner = "banner.jpg"
         self.eg_episode_thumbnails = "<i>not supported</i>"
         self.eg_season_thumbnails = "<i>not supported</i>"
     

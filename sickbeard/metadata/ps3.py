@@ -56,6 +56,7 @@ class PS3Metadata(generic.GenericMetadata):
         self.eg_episode_metadata = "<i>not supported</i>"
         self.eg_fanart = "<i>not supported</i>"
         self.eg_poster = "cover.jpg"
+        self.eg_banner = "banner.jpg"
         self.eg_episode_thumbnails = "Season##\\<i>filename</i>.ext.cover.jpg"
         self.eg_season_thumbnails = "<i>not supported</i>"
     

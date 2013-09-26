@@ -76,7 +76,7 @@ class GenericMetadata():
         self.season_thumbnails = season_thumbnails
     
     def get_config(self):
-        config_list = [self.show_metadata, self.episode_metadata, self.poster, self.fanart, self.episode_thumbnails, self.season_thumbnails]
+        config_list = [self.show_metadata, self.episode_metadata, self.poster, self.banner, self.fanart, self.episode_thumbnails, self.season_thumbnails]
         return '|'.join([str(int(x)) for x in config_list])
 
     def get_id(self):
@@ -91,10 +91,10 @@ class GenericMetadata():
         self.show_metadata = config_list[0]
         self.episode_metadata = config_list[1]
         self.poster = config_list[2]
-        self.banner = config_list[2]
-        self.fanart = config_list[3]
-        self.episode_thumbnails = config_list[4]
-        self.season_thumbnails = config_list[5]
+        self.banner = config_list[3]
+        self.fanart = config_list[4]
+        self.episode_thumbnails = config_list[5]
+        self.season_thumbnails = config_list[6]
     
     def _has_show_metadata(self, show_obj):
         result = ek.ek(os.path.isfile, self.get_show_file_path(show_obj))
