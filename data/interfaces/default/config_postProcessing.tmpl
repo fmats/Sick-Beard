@@ -474,9 +474,14 @@
             <label for="${cur_id}_show_metadata" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_show_metadata" #if $cur_metadata_inst.show_metadata then "checked=\"checked\"" else ""#/>&nbsp;Show Metadata</label>
             <label for="${cur_id}_episode_metadata" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_episode_metadata" #if $cur_metadata_inst.episode_metadata then "checked=\"checked\"" else ""#/>&nbsp;Episode Metadata</label>
             <label for="${cur_id}_fanart" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_fanart" #if $cur_metadata_inst.fanart then "checked=\"checked\"" else ""#/>&nbsp;Show Fanart Image</label>
-            <label for="${cur_id}_poster" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_poster" #if $cur_metadata_inst.poster then "checked=\"checked\"" else ""#/>&nbsp;Show Folder Image</label>
-            <label for="${cur_id}_episode_thumbnails" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_episode_thumbnails" #if $cur_metadata_inst.episode_thumbnails then "checked=\"checked\"" else ""#/>&nbsp;Episode Thumbnail</label>
-            <label for="${cur_id}_season_thumbnails" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_season_thumbnails" #if $cur_metadata_inst.season_thumbnails then "checked=\"checked\"" else ""#/>&nbsp;Season Thumbnail</label>
+
+            <label for="${cur_id}_poster" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_poster" #if $cur_metadata_inst.poster then "checked=\"checked\"" else ""#/>&nbsp;Show Poster Image</label>
+
+            <label for="${cur_id}_banner" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_banner" #if $cur_metadata_inst.banner then "checked=\"checked\"" else ""#/>&nbsp;Show Banner Image</label>
+
+
+            <label for="${cur_id}_episode_thumbnails" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_episode_thumbnails" #if $cur_metadata_inst.episode_thumbnails then "checked=\"checked\"" else ""#/>&nbsp;Episode Poster</label>
+            <label for="${cur_id}_season_thumbnails" class="clearfix"><input type="checkbox" class="float-left metadata_checkbox" id="${cur_id}_season_thumbnails" #if $cur_metadata_inst.season_thumbnails then "checked=\"checked\"" else ""#/>&nbsp;Season Poster</label>
         </div>
     </div>
     <div class="metadata-example-wrapper">
@@ -486,6 +491,8 @@
             <label for="${cur_id}_episode_metadata"><span id="${cur_id}_eg_episode_metadata">$cur_metadata_inst.eg_episode_metadata</span></label>
             <label for="${cur_id}_fanart"><span id="${cur_id}_eg_fanart">$cur_metadata_inst.eg_fanart</span></label>
             <label for="${cur_id}_poster"><span id="${cur_id}_eg_poster">$cur_metadata_inst.eg_poster</span></label>
+            <label for="${cur_id}_banner"><span id="${cur_id}_eg_banner">$cur_metadata_inst.eg_banner</span></label>
+
             <label for="${cur_id}_episode_thumbnails"><span id="${cur_id}_eg_episode_thumbnails">$cur_metadata_inst.eg_episode_thumbnails</span></label>
             <label for="${cur_id}_season_thumbnails"><span id="${cur_id}_eg_season_thumbnails">$cur_metadata_inst.eg_season_thumbnails</span></label>
         </div>
@@ -495,13 +502,6 @@
 </div>
 #end for
 
-                        <div class="field-pair clearfix">
-                            <input type="checkbox" name="use_banner" id="use_banner" #if $sickbeard.USE_BANNER then "checked=checked" else ""#/>
-                            <label class="clearfix" for="use_banner">
-                                <span class="component-title">Use Banners</span>
-                                <span class="component-desc">Use banners instead of posters for 'Show Folder Image'</span>
-                            </label>
-                        </div>
 
                         <input type="submit" class="btn config_submitter" value="Save Changes" /><br/>
 
