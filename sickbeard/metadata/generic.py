@@ -88,13 +88,22 @@ class GenericMetadata():
 
     def set_config(self, string):
         config_list = [bool(int(x)) for x in string.split('|')]
+
+
         self.show_metadata = config_list[0]
         self.episode_metadata = config_list[1]
         self.poster = config_list[2]
-        self.banner = config_list[3]
-        self.fanart = config_list[4]
-        self.episode_thumbnails = config_list[5]
-        self.season_thumbnails = config_list[6]
+
+        if len(config_list) <= 6:
+            self.banner = config_list[2]
+            self.fanart = config_list[3]
+            self.episode_thumbnails = config_list[4]
+            self.season_thumbnails = config_list[5]
+        else:
+            self.banner = config_list[3]
+            self.fanart = config_list[4]
+            self.episode_thumbnails = config_list[5]
+            self.season_thumbnails = config_list[6]
     
     def _has_show_metadata(self, show_obj):
         result = ek.ek(os.path.isfile, self.get_show_file_path(show_obj))
